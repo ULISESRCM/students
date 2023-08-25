@@ -45,7 +45,7 @@ void addStudent(Student students[], int cont) {
     cout << endl;
     cout << "-------- Carga de Alumnos ----------" << endl;
 
-    for (int i = 0; i < cont; i++) {
+    for (int i = 0; i <= cont-1; i++) {
         if (students[i].file == 0 && exit == 1) {
             cout << "*** Ingresando alumno Nro *** " << i + 1 << endl;
             cout << endl;
@@ -64,7 +64,7 @@ void addStudent(Student students[], int cont) {
             cout << "House Number: " << endl;
             cin >> students[i].address.number;
             cout << endl;
-            cout << "Presione 'Enter' para continuar o '0' para salir." << endl;
+            cout << "Presione '1' para continuar o '0' para salir." << endl;
             cin >> exit;
         }
     }
@@ -77,10 +77,10 @@ void printStudent(Student students[], int N) {
 
     int estudiantesCargados = 0;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i <= N-1; i++) {
         if (students[i].file != 0) {
             cout << endl;
-            cout << "***  Alumno N " << i + 1 << endl;
+            cout << "***  Alumno N " << i + 1 << "***"<< endl;
             cout << "Full Name: " << students[i].fullName << endl;
             cout << "File Number: " << students[i].file << endl;
             cout << "First Partial: " << students[i].firstPartial << endl;
@@ -102,7 +102,7 @@ void printStudentPromotion(Student students[], int N){
     for(int i = 0; i <= N-1; i ++){
         if(students[i].firstPartial >= 8 && students[i].secondPartial >= 8){
         cout <<endl;
-        cout << "***  Alumno N "<< i << endl;
+        cout << "***  Alumno N "<< i+1<< "***" << endl;
         cout << "Full Name: " << students[i].fullName << endl;
         cout << "File Number: " << students[i].file << endl;
         cout << "Firts Prtial: " << students[i].firstPartial << endl;
@@ -133,6 +133,56 @@ void addStudentverify(Student students[],int N){
     }
 
 }
+
+void searchStudent(Student students[], int N){
+    int sought = -1;
+    bool found = false;
+    cout << "*** Buscar por Legajo ***" << endl;
+    cout << endl;
+    cout << "Ingrese legajo: "<<endl;
+    cin >> sought;
+    cout << endl;
+
+    for (int  i = 0; i <= N-1; i++)
+    {
+        if (students[i].file == sought)
+        {
+        cout <<endl;
+        cout << "***  Alumno N "<< i+1 << endl;
+        cout << "Full Name: " << students[i].fullName << endl;
+        cout << "File Number: " << students[i].file << endl;
+        cout << "Firts Prtial: " << students[i].firstPartial << endl;
+        cout << "Second Partial: " << students[i].secondPartial << endl;
+        cout << "Street Name: " << students[i].address.nameAdress << endl;
+        cout << "Street Number: " << students[i].address.number << endl;
+        found = true;
+        }
+    }
+    if (!found)
+    {
+        cout << "El legajo no fue encontrado." << endl;
+    }
+    
+}
+void emptyFile(Student students[], int N){
+    int sought = -1;
+    cout << "*** Vaciar por Legajo ***" << endl;
+    cout << endl;
+    cout << "Ingrese legajo: "<<endl;
+    cin >> sought;
+    cout << endl;
+
+    for (int  i = 0; i <= N-1; i++)
+    {
+        if (students[i].file == sought)
+        {
+        students[i].file = 0;
+        cout << "Legajo vaciado con exito." << endl;
+        }
+        
+    }
+    
+}
 void startStudents(Student students[], int N){
     for(int i = 0 ; i <= N-1; i++){
         students[i].file = 0;
@@ -156,14 +206,18 @@ void menu(Student students[], int &option,int N){
     case 2: printStudent(students, N);
     break;
     case 3: printStudentPromotion(students, N);
-
-
+    break;
+    case 4: searchStudent(students, N);
+    break;
+    case 5: emptyFile(students, N);
+    break;
+    default: cout << "Opción invalida" << endl;
     }
 
 }
 int main()
 {
-    int N = 2, salir = 0, option = 0;
+    int N = 4, salir = 0, option = 0;
     Student students[N];
 
     startStudents(students, N);
